@@ -7,22 +7,38 @@ using System.IO;
 using System.Net;
 using System.Web;
 
-
 namespace ChargeScotland {
     class Program {
 
         static void Main(string[] args) {
             Program p = new Program();
-            p.PopulateDynamic();
+
+            string featurePath = @"C:\Users\Corrie Green\GitHub\ev-dataset\EV Charge Point Data\Data\feature-31-01-2022-21-25-00.json";
+            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\EV Charge Point Data\Data\dynamic-31-01-2022-21-25-00.json";
+
+            // One time feature population
+            p.PopulateFeatureTables(featurePath);
+
+            // One time dynamic population
+            p.PopulateDynamicTable(dynamicPath);
+
+            // Many population
+            p.PopulateDynamicGroupTable(dynamicPath);
+
+            //TODO 
+            //      - Pass the file path inc filename where the json file will sit
+            //      - get the date from the file name
 
         }
 
-        public void PopulateDynamic() {
+
+
+        public void PopulateDynamicGroupTable(string path) {
 
             // need to extract the time 
-            var obj = JObject.Parse(File.ReadAllText(@"C:\Users\Corrie Green\Google Drive\Corrie Green\corriedotdev\EV Charge Point Data\dynamic_280122_2pm.json"));
-            var time = "";
+            var obj = JObject.Parse(File.ReadAllText(path));
 
+            var time = GetTimeFromPath(path); //31-01-2022-20-38-50
 
             JArray items = (JArray)obj["chargePoints"];
 
@@ -34,7 +50,90 @@ namespace ChargeScotland {
                     var name = (string)obj["chargePoints"][i]["chargePoint"]["name"];
                     var siteid = (int)obj["chargePoints"][i]["chargePoint"]["siteID"];
 
-                    Console.WriteLine("Dynamic - Doing ID" + id + " ");
+                    Console.WriteLine("DynamicGroup- Doing ID " + id + " ");
+
+                    try {
+                        using (var cmd = new SqlCommand("INSERT INTO DynamicConnectorGroups (ID, ConnectorID, Status, Time) VALUES (@ID,@ConnectorID,@Status,@Time)")) {
+
+                            cmd.Connection = con;
+
+                            var groupID = 0;
+                            var status = "";
+
+                            JArray connectorSize = (JArray)obj["chargePoints"][i]["chargePoint"]["connectorGroups"];
+                            int size = connectorSize.Count;
+
+                            for (int y = 0; y < size; y++) {
+
+                                groupID = (int)connectorSize[y]["connectorGroupID"];
+
+                                try {
+                                    status = (string)connectorSize[y]["connectors"][0]["connectorStatus"].ToString();
+
+                                } catch (Exception e) {
+
+                                }
+
+                                //if the connector group id is the same as the last one there is a data issue, pass it on
+                                // id == 1001476
+                                if (y > 0 && (int)connectorSize[y]["connectorGroupID"] ==
+                                    (int)connectorSize[y - 1]["connectorGroupID"]) {
+                                    // do nothing the data is shit in this entry
+                                    Console.Write("DynamicGroup - Invalid group ID " + id);
+                                } else {
+
+                                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+                                    cmd.Parameters.Add("@ConnectorID", SqlDbType.Int).Value = groupID;
+                                    cmd.Parameters.Add("@Status", SqlDbType.VarChar).Value = status;
+                                    cmd.Parameters.Add("@Time", SqlDbType.DateTime).Value = time;
+
+                                    con.Open();
+
+                                    if (cmd.ExecuteNonQuery() > 0) {
+                                        Console.WriteLine("DynamicGroup  - Done");
+                                    } else {
+                                        Console.WriteLine("DynamicGroup -  Table failed");
+                                    }
+
+                                    con.Close();
+                                    cmd.Parameters.Clear();
+
+                                }
+                            }
+
+                            Console.WriteLine("DynamicGroup - Done ID " + id);
+
+                        }
+
+                    } catch (Exception e) {
+                        Console.WriteLine("Error during insert: " + e.Message);
+                        con.Close();
+                    }
+
+                }
+
+            }
+
+            Console.WriteLine("DynamicGroup - Complete");
+
+        }
+
+        public void PopulateDynamicTable(string path) {
+
+            // need to extract the time 
+            var obj = JObject.Parse(File.ReadAllText(path));
+
+            JArray items = (JArray)obj["chargePoints"];
+
+            using (SqlConnection con = new SqlConnection(@"Data Source=CJG-LAPTOP\SQLEXPRESS;Initial Catalog=EV_DB;Integrated Security=True")) {
+
+                for (int i = 0; i < items.Count; i++) {
+
+                    var id = (int)obj["chargePoints"][i]["chargePoint"]["id"];
+                    var name = (string)obj["chargePoints"][i]["chargePoint"]["name"];
+                    var siteid = (int)obj["chargePoints"][i]["chargePoint"]["siteID"];
+
+                    Console.WriteLine("Dynamic - Doing ID " + id + " ");
 
                     try {
                         using (var cmd = new SqlCommand("INSERT INTO Dynamic (ID, Name, SiteID) VALUES (@ID,@Name,@SiteID)")) {
@@ -59,76 +158,18 @@ namespace ChargeScotland {
                     } catch (Exception e) {
                         Console.WriteLine("Error during insert: " + e.Message);
                     }
-
-
-                    Console.WriteLine("DynamicGroup- Doing ID " + id + " ");
-
-                    try {
-                        using (var cmd = new SqlCommand("INSERT INTO DynamicConnectorGroups (ID, ConnectorID, Status, Time) VALUES (@ID,@ConnectorID,@Status,@Time)")) {
-
-                            cmd.Connection = con;
-
-                            var groupID = 0;
-                            var status = "";
-
-                            JArray connectorSize = (JArray)obj["chargePoints"][i]["chargePoint"]["connectorGroups"];
-                            int size = connectorSize.Count;
-
-                            for (int y = 0; y < size; y++) {
-                               
-                                groupID = (int)connectorSize[y]["connectorGroupID"];
-
-                                try {
-                                    status = (string)connectorSize[y]["connectors"][0]["connectorStatus"].ToString();
-
-                                } catch (Exception e) {
-
-                                }
-
-
-                                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = id;
-                                cmd.Parameters.Add("@ConnectorID", SqlDbType.Int).Value = groupID;
-                                cmd.Parameters.Add("@Status", SqlDbType.VarChar).Value = status;
-                                cmd.Parameters.Add("@Time", SqlDbType.DateTime).Value = new DateTime(2022, 01, 30, 11, 00, 00);
-
-                                con.Open();
-                                
-                                if (cmd.ExecuteNonQuery() > 0) {
-                                    Console.WriteLine("DynamicGroup  - Done");
-                                } else {
-                                    Console.WriteLine("DynamicGroup -  Table failed");
-                                }
-
-                                con.Close();
-                                cmd.Parameters.Clear();
-
-                            }
-
-                            Console.WriteLine("Done");
-
-                        }
-
-                    } catch (Exception e) {
-                        Console.WriteLine("Error during insert: " + e.Message);
-                    }
-
-
-
-
-
                 }
 
             }
 
+            Console.WriteLine("Dynamic - Complete");
 
         }
 
-
-
-        public void PopulateFeature() {
+        public void PopulateFeatureTables(string path) {
 
             // read JSON directly from a file
-            var obj = JObject.Parse(File.ReadAllText(@"C:\Users\Corrie Green\Google Drive\Corrie Green\corriedotdev\EV Charge Point Data\feature_280122.json"));
+            var obj = JObject.Parse(File.ReadAllText(path));
 
             JArray items = (JArray)obj["features"];
 
@@ -226,10 +267,24 @@ namespace ChargeScotland {
 
             }
 
+            Console.WriteLine("Features & FeaturesGroups - Complete");
+
 
         }
 
+        public DateTime GetTimeFromPath(string path) {
 
+            string file = Path.GetFileNameWithoutExtension(path);
+            string temp = file.Replace("feature-", "");
+            temp = temp.Replace("dynamic-", "");
+
+            string[] time = temp.Split('-'); // 31-01-2022-21-25-00
+            DateTime t = new DateTime(Int32.Parse(time[2]), Int32.Parse(time[1]), Int32.Parse(time[0]),
+                Int32.Parse(time[3]), Int32.Parse(time[4]), Int32.Parse(time[5]));
+
+            return t;
+
+        }
 
 
     }
