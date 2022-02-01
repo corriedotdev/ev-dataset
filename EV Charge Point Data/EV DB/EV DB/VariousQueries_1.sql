@@ -24,8 +24,7 @@ FROM FeatureConnectorGroups
 GROUP by PLUGTYPENAME
 
 
-/*how many in use*/
-SELECT dc.status, fc.PLUGTYPENAME
+/*how many in use at time*/
+SELECT dc.id, dc.status, dc.time, fc.PLUGTYPENAME
 FROM DynamicConnectorGroups dc, FeatureConnectorGroups fc
-where dc.id = fc.id
-group by status
+where dc.id = fc.id AND dc.status = 'unavailable'

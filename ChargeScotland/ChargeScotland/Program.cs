@@ -17,13 +17,13 @@ namespace ChargeScotland {
             string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\EV Charge Point Data\Data\dynamic-31-01-2022-21-25-00.json";
 
             // One time feature population
-            p.PopulateFeatureTables(featurePath);
+            // p.PopulateFeatureTables(featurePath);
 
             // One time dynamic population
-            p.PopulateDynamicTable(dynamicPath);
+            // p.PopulateDynamicTable(dynamicPath);
 
             // Many population
-            p.PopulateDynamicGroupTable(dynamicPath);
+            // p.PopulateDynamicGroupTable(dynamicPath);
 
             //TODO 
             //      - Pass the file path inc filename where the json file will sit
