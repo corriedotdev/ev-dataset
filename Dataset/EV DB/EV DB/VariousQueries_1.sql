@@ -1,10 +1,3 @@
-
-/*Select plug types at location*/
-SELECT F.LONGITUDE, F.LATITUDE, F.ID
-FROM DBO.Feature F
-LEFT JOIN dbo.FeatureConnectorGroups G ON f.id = g.id
-WHERE G.PLUGTYPENAME = 'CCS'
-
 /*Count rows*/
 SELECT count(*)
 from dbo.Dynamic
@@ -33,3 +26,32 @@ where dc.id = fc.id AND dc.status = 'unavailable'
 SELECT dc.id, dc.status, dc.time, fc.PLUGTYPENAME
 FROM DynamicConnectorGroups dc, FeatureConnectorGroups fc
 where dc.id = fc.id AND fc.PLUGTYPENAME = 'CCS'
+
+
+/* Select all dynamic data based on a specific time */
+SELECT * 
+FROM DynamicConnectorGroups dc
+INNER JOIN Dynamic d
+ON dc.ID = d.ID 
+WHERE dc.TIME ='2022-01-31 21:25:00.000'
+
+/* Select long lat position on day*/
+SELECT * 
+FROM DynamicConnectorGroups dc
+INNER JOIN Dynamic d ON dc.ID = d.ID 
+INNER JOIN Feature f ON d.ID = f.ID 
+WHERE dc.TIME ='2022-01-31 21:25:00.000'
+
+/* Return all charger information on a specified date where status is available*/
+SELECT * 
+FROM DynamicConnectorGroups dc
+INNER JOIN Dynamic d ON dc.ID = d.ID 
+INNER JOIN Feature f ON d.ID = f.ID 
+INNER JOIN FeatureConnectorGroups fg ON f.ID = fg.ID 
+WHERE dc.TIME ='2022-01-31 21:25:00.000' AND dc.STATUS = 'AVAILABLE'
+
+/*Select plug types at location*/
+SELECT *
+FROM DBO.Feature F
+LEFT JOIN dbo.FeatureConnectorGroups G ON f.id = g.id
+WHERE G.PLUGTYPENAME = 'CCS'

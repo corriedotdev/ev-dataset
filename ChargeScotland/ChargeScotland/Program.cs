@@ -19,8 +19,8 @@ namespace ChargeScotland {
         static void Main(string[] args) {
             Program p = new Program();
 
-            string featurePath = @"C:\Users\Corrie Green\GitHub\ev-dataset\EV Charge Point Data\Data\feature-31-01-2022-21-25-00.json";
-            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\EV Charge Point Data\Data\dynamic-10-04-2022-19-50-00.json"; // last dynamic added
+            string featurePath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\feature-31-01-2022-21-25-00.json";
+            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\dynamic-11-04-2022-15-10-00.json"; // last dynamic added
 
             // One time feature population
             // p.PopulateFeatureTables(featurePath);

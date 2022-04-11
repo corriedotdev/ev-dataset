@@ -42,3 +42,4 @@ C:\Users\Corrie Green\GitHub\ev-dataset\ChargeScotland\ChargeScotland\bin\Debug\
 C:\Users\Corrie Green\GitHub\ev-dataset\ChargeScotland\ChargeScotland\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\Corrie Green\GitHub\ev-dataset\ChargeScotland\ChargeScotland\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Corrie Green\GitHub\ev-dataset\ChargeScotland\ChargeScotland\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Corrie Green\GitHub\ev-dataset\ChargeScotland\ChargeScotland\bin\Debug\netcoreapp3.1\WebDriver.dll
