@@ -1,3 +1,4 @@
+
 $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
 $session.UserAgent = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Mobile Safari/537.36"
 $response = (Invoke-WebRequest -UseBasicParsing -Uri "https://account.chargeplacescotland.org/api/v2/poi/chargepoint/dynamic" `
@@ -21,8 +22,17 @@ $response = (Invoke-WebRequest -UseBasicParsing -Uri "https://account.chargeplac
 }).content
 
 Write-Host "---"
-Write-Host $response
+#dynamic-01-02-2022-09-00-00
 
+$dir = "C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\test folder\"
+$date = Get-Date -Format "dd-MM-yyyy-HH-mm-00"
+$filename = "dynamic-" + $date + ".json"
 
+try {
+    [System.IO.File]::WriteAllText($dir+$filename,$response);
+} catch {
+    Write-Host "Failed to save file"
+} 
 
+Write-Host "Done"
 
