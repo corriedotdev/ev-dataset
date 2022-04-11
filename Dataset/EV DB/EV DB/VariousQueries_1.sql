@@ -28,3 +28,8 @@ GROUP by PLUGTYPENAME
 SELECT dc.id, dc.status, dc.time, fc.PLUGTYPENAME
 FROM DynamicConnectorGroups dc, FeatureConnectorGroups fc
 where dc.id = fc.id AND dc.status = 'unavailable'
+
+/*Select a charger status from all time data*/
+SELECT dc.id, dc.status, dc.time, fc.PLUGTYPENAME
+FROM DynamicConnectorGroups dc, FeatureConnectorGroups fc
+where dc.id = fc.id AND fc.PLUGTYPENAME = 'CCS'

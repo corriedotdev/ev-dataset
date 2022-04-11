@@ -10,20 +10,26 @@ using System.Web;
 namespace ChargeScotland {
     class Program {
 
+
+        /// <summary>
+        /// DB is made up of 4 tables. Static is feature and feature connected groups
+        /// dynamic data is dynamic and dynamic connector groups
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args) {
             Program p = new Program();
 
             string featurePath = @"C:\Users\Corrie Green\GitHub\ev-dataset\EV Charge Point Data\Data\feature-31-01-2022-21-25-00.json";
-            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\EV Charge Point Data\Data\dynamic-31-01-2022-21-25-00.json";
+            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\EV Charge Point Data\Data\dynamic-10-04-2022-19-50-00.json"; // last dynamic added
 
             // One time feature population
             // p.PopulateFeatureTables(featurePath);
 
             // One time dynamic population
-            // p.PopulateDynamicTable(dynamicPath);
+            //p.PopulateDynamicTable(dynamicPath);
 
-            // Many population
-            // p.PopulateDynamicGroupTable(dynamicPath);
+            // This should be the only table to insert queries into afther the above two have been populated
+            p.PopulateDynamicConnectorGroupTable(dynamicPath);
 
             //TODO 
             //      - Pass the file path inc filename where the json file will sit
@@ -33,7 +39,7 @@ namespace ChargeScotland {
 
 
 
-        public void PopulateDynamicGroupTable(string path) {
+        public void PopulateDynamicConnectorGroupTable(string path) {
 
             // need to extract the time 
             var obj = JObject.Parse(File.ReadAllText(path));
