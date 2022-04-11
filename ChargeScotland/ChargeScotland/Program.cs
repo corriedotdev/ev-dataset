@@ -19,14 +19,16 @@ namespace ChargeScotland {
         static void Main(string[] args) {
             Program p = new Program();
 
-            string featurePath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\feature-31-01-2022-21-25-00.json";
-            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\dynamic-11-04-2022-15-10-00.json"; // last dynamic added
+            string featurePath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\feature-11-04-2022-22-30-00.json";
+            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\Test Data\dynamic-11-04-2022-22-30-00.json"; // last dynamic added
+
+            // TODO get all json files in a directory and run PopulateDynamicConnectorGroupTable
 
             // One time feature population
-            // p.PopulateFeatureTables(featurePath);
+             p.PopulateFeatureTables(featurePath);
 
             // One time dynamic population
-            //p.PopulateDynamicTable(dynamicPath);
+            p.PopulateDynamicTable(dynamicPath);
 
             // This should be the only table to insert queries into afther the above two have been populated
             p.PopulateDynamicConnectorGroupTable(dynamicPath);

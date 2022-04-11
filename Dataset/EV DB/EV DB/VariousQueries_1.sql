@@ -48,7 +48,9 @@ FROM DynamicConnectorGroups dc
 INNER JOIN Dynamic d ON dc.ID = d.ID 
 INNER JOIN Feature f ON d.ID = f.ID 
 INNER JOIN FeatureConnectorGroups fg ON f.ID = fg.ID 
-WHERE dc.TIME ='2022-01-31 21:25:00.000' AND dc.STATUS = 'AVAILABLE'
+WHERE dc.CONNECTORID = fg.CONNECTORID AND /* this is needed as the connectorID is the same as ID  */
+ dc.TIME ='2022-04-11 22:30:00.000' AND dc.STATUS = 'AVAILABLE'
+
 
 /*Select plug types at location*/
 SELECT *
