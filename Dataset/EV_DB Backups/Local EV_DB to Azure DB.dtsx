@@ -1,0 +1,1424 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/24/2022 1:30:02 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CJG-LAPTOP"
+  DTS:CreatorName="CJG-LAPTOP\Corrie Green"
+  DTS:Description="Copies local evdb to the azure instance"
+  DTS:DTSID="{3CB08E7E-9DBF-4F48-A0D5-D6FCD6B4B7CE}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.168"
+  DTS:LocaleID="2057"
+  DTS:MaxErrorCount="0"
+  DTS:ObjectName="Local EV_DB to Azure DB"
+  DTS:VersionGUID="{81C6B4A5-195D-47E4-9DF1-0817D525F2DF}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D46FD79D-BEF5-4E63-B70B-2FF60445FA52}"
+      DTS:ObjectName="DestinationConnectionOLEDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=evdb.database.windows.net;User ID=corriedotdev;Initial Catalog=EV_DB;Provider=SQLNCLI11;Auto Translate=false;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAQcBzYoiYj0GQfccsYf54OwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAC+xXIfUiE9Xh2mbyBMlJ/bodnZxXqHVbkuOYr/WN+6owAAAAAOgAAAAAIAACAAAAA+fB0Ga7YmZO32QiSC5I9xfVm1SgrxVGcHtJI0TXCbUDAAAABEAdlfMzm+/iqBYIgfd27ybBtLzOMUXdjaHroQvxBllvwNQK19ZY4HKVTGAXtlqZtAAAAAuEgCrb/eBX9msSoGbhNREg1MQBdi4pZdUuBU+jldi8sTCsLDLAaPKRDQo8HpgoHjWWGSQpHIPL1rRtIWcLlU2Q</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{752D0098-0A23-404E-8318-5E798D0574C8}"
+      DTS:ObjectName="SourceConnectionOLEDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=CJG-LAPTOP\SQLEXPRESS;Initial Catalog=EV_DB;Provider=SQLNCLI11;Integrated Security=SSPI;Auto Translate=false;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{F9925E53-6D08-4C79-9C08-325F1D322BC2}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          defaultBufferSize="3145728"
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task 1\Destination - Dynamic"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination - Dynamic"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Dynamic]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Destination - Dynamic.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input].Columns[NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="NAME"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input].ExternalColumns[NAME]"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].Columns[NAME]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input].Columns[SITEID]"
+                      cachedDataType="i4"
+                      cachedName="SITEID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input].ExternalColumns[SITEID]"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].Columns[SITEID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input].ExternalColumns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input].ExternalColumns[SITEID]"
+                      dataType="i4"
+                      name="SITEID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Destination - Dynamic.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination - Dynamic.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination - Dynamic.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination - Dynamic.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination - Dynamic.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination 1 - DynamicConnectorGroups"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DynamicConnectorGroups]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].Columns[DCG_ID]"
+                      cachedDataType="i4"
+                      cachedName="DCG_ID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[DCG_ID]"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[DCG_ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].Columns[CONNECTORID]"
+                      cachedDataType="i4"
+                      cachedName="CONNECTORID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[CONNECTORID]"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[CONNECTORID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].Columns[STATUS]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="STATUS"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[STATUS]"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[STATUS]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].Columns[TIME]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="TIME"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[TIME]"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[TIME]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[DCG_ID]"
+                      dataType="i4"
+                      name="DCG_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[CONNECTORID]"
+                      dataType="i4"
+                      name="CONNECTORID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[STATUS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="STATUS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input].ExternalColumns[TIME]"
+                      dataType="dbTimeStamp"
+                      name="TIME" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Destination 2 - Feature"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination 2 - Feature"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Feature]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Destination 2 - Feature.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].Columns[NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="NAME"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[NAME]"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[NAME]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].Columns[SITEID]"
+                      cachedDataType="i4"
+                      cachedName="SITEID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[SITEID]"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[SITEID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].Columns[LONGITUDE]"
+                      cachedDataType="numeric"
+                      cachedName="LONGITUDE"
+                      cachedPrecision="9"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[LONGITUDE]"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[LONGITUDE]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].Columns[LATITUDE]"
+                      cachedDataType="numeric"
+                      cachedName="LATITUDE"
+                      cachedPrecision="8"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[LATITUDE]"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[LATITUDE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[SITEID]"
+                      dataType="i4"
+                      name="SITEID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[LONGITUDE]"
+                      dataType="numeric"
+                      name="LONGITUDE"
+                      precision="9"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input].ExternalColumns[LATITUDE]"
+                      dataType="numeric"
+                      name="LATITUDE"
+                      precision="8"
+                      scale="6" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Destination 2 - Feature.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination 2 - Feature.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination 2 - Feature.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination 2 - Feature.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination 3 - FeatureConnectorGroups"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FeatureConnectorGroups]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].Columns[FCG_ID]"
+                      cachedDataType="i4"
+                      cachedName="FCG_ID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].ExternalColumns[FCG_ID]"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[FCG_ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].Columns[CONNECTORID]"
+                      cachedDataType="i4"
+                      cachedName="CONNECTORID"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].ExternalColumns[CONNECTORID]"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[CONNECTORID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].Columns[PLUGTYPENAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="PLUGTYPENAME"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].ExternalColumns[PLUGTYPENAME]"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[PLUGTYPENAME]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].ExternalColumns[FCG_ID]"
+                      dataType="i4"
+                      name="FCG_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].ExternalColumns[CONNECTORID]"
+                      dataType="i4"
+                      name="CONNECTORID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input].ExternalColumns[PLUGTYPENAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="PLUGTYPENAME" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Source - Dynamic"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Source - Dynamic"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Dynamic]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Source - Dynamic.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].Columns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].ExternalColumns[NAME]"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].Columns[NAME]"
+                      name="NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].Columns[SITEID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].ExternalColumns[SITEID]"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].Columns[SITEID]"
+                      name="SITEID"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].ExternalColumns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output].ExternalColumns[SITEID]"
+                      dataType="i4"
+                      name="SITEID" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[NAME]"
+                      name="NAME" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[SITEID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[SITEID]"
+                      name="SITEID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Source 1 - DynamicConnectorGroups"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DynamicConnectorGroups]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[DCG_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[DCG_ID]"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[DCG_ID]"
+                      name="DCG_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[CONNECTORID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[CONNECTORID]"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[CONNECTORID]"
+                      name="CONNECTORID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[STATUS]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[STATUS]"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[STATUS]"
+                      name="STATUS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[TIME]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[TIME]"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].Columns[TIME]"
+                      name="TIME"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[DCG_ID]"
+                      dataType="i4"
+                      name="DCG_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[CONNECTORID]"
+                      dataType="i4"
+                      name="CONNECTORID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[STATUS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="STATUS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[TIME]"
+                      dataType="dbTimeStamp"
+                      name="TIME" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[DCG_ID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[DCG_ID]"
+                      name="DCG_ID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[CONNECTORID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[CONNECTORID]"
+                      name="CONNECTORID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[STATUS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[STATUS]"
+                      name="STATUS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[TIME]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[TIME]"
+                      name="TIME" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Source 2 - Feature"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Source 2 - Feature"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Feature]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Source 2 - Feature.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[NAME]"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[NAME]"
+                      name="NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[SITEID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[SITEID]"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[SITEID]"
+                      name="SITEID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[LONGITUDE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[LONGITUDE]"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[LONGITUDE]"
+                      name="LONGITUDE"
+                      precision="9"
+                      scale="6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[LATITUDE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[LATITUDE]"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].Columns[LATITUDE]"
+                      name="LATITUDE"
+                      precision="8"
+                      scale="6"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[SITEID]"
+                      dataType="i4"
+                      name="SITEID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[LONGITUDE]"
+                      dataType="numeric"
+                      name="LONGITUDE"
+                      precision="9"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output].ExternalColumns[LATITUDE]"
+                      dataType="numeric"
+                      name="LATITUDE"
+                      precision="8"
+                      scale="6" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[NAME]"
+                      name="NAME" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[SITEID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[SITEID]"
+                      name="SITEID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[LONGITUDE]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[LONGITUDE]"
+                      name="LONGITUDE"
+                      precision="9"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[LATITUDE]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[LATITUDE]"
+                      name="LATITUDE"
+                      precision="8"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Source 3 - FeatureConnectorGroups"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FeatureConnectorGroups]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[FCG_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[FCG_ID]"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[FCG_ID]"
+                      name="FCG_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[CONNECTORID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[CONNECTORID]"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[CONNECTORID]"
+                      name="CONNECTORID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[PLUGTYPENAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[PLUGTYPENAME]"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].Columns[PLUGTYPENAME]"
+                      name="PLUGTYPENAME"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[FCG_ID]"
+                      dataType="i4"
+                      name="FCG_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[CONNECTORID]"
+                      dataType="i4"
+                      name="CONNECTORID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output].ExternalColumns[PLUGTYPENAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="PLUGTYPENAME" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[FCG_ID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[FCG_ID]"
+                      name="FCG_ID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[CONNECTORID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[CONNECTORID]"
+                      name="CONNECTORID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[PLUGTYPENAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[PLUGTYPENAME]"
+                      name="PLUGTYPENAME" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task 1.Paths[OLE DB Source Output]"
+              endId="Package\Data Flow Task 1\Destination - Dynamic.Inputs[Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task 1\Source - Dynamic.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Data Flow Task 1.Paths[OLE DB Source Output1]"
+              endId="Package\Data Flow Task 1\Destination 1 - DynamicConnectorGroups.Inputs[Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task 1\Source 1 - DynamicConnectorGroups.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Data Flow Task 1.Paths[OLE DB Source Output2]"
+              endId="Package\Data Flow Task 1\Destination 2 - Feature.Inputs[Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task 1\Source 2 - Feature.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Data Flow Task 1.Paths[OLE DB Source Output3]"
+              endId="Package\Data Flow Task 1\Destination 3 - FeatureConnectorGroups.Inputs[Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task 1\Source 3 - FeatureConnectorGroups.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Preparation SQL Task 1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{F9B8E591-EDF0-46E0-87A5-2ADC221EB620}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Preparation SQL Task 1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D46FD79D-BEF5-4E63-B70B-2FF60445FA52}"
+          SQLTask:SqlStatementSource="CREATE TABLE [dbo].[Dynamic] (&#xA;[ID] int NOT NULL,&#xA;[NAME] varchar(255),&#xA;[SITEID] int&#xA;)&#xA;GO&#xA;CREATE TABLE [dbo].[DynamicConnectorGroups] (&#xA;[DCG_ID] int NOT NULL,&#xA;[ID] int,&#xA;[CONNECTORID] int,&#xA;[STATUS] varchar(255),&#xA;[TIME] smalldatetime&#xA;)&#xA;GO&#xA;CREATE TABLE [dbo].[Feature] (&#xA;[ID] int NOT NULL,&#xA;[NAME] varchar(255),&#xA;[SITEID] int,&#xA;[LONGITUDE] decimal(9,6),&#xA;[LATITUDE] decimal(8,6)&#xA;)&#xA;GO&#xA;CREATE TABLE [dbo].[FeatureConnectorGroups] (&#xA;[FCG_ID] int NOT NULL,&#xA;[ID] int,&#xA;[CONNECTORID] int,&#xA;[PLUGTYPENAME] varchar(255)&#xA;)&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{A1DFFB43-3C9A-4527-821F-606786B95B28\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{A1DFFB43-3C9A-4527-821F-606786B95B28}"
+      DTS:From="Package\Preparation SQL Task 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{A1DFFB43-3C9A-4527-821F-606786B95B28}"
+      DTS:To="Package\Data Flow Task 1" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

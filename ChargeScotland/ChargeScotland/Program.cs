@@ -19,23 +19,28 @@ namespace ChargeScotland {
         static void Main(string[] args) {
             Program p = new Program();
 
-            string featurePath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\feature-11-04-2022-22-30-00.json";
-            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\Test Data\dynamic-11-04-2022-22-30-00.json"; // last dynamic added
-
-            // TODO get all json files in a directory and run PopulateDynamicConnectorGroupTable
+            string featurePath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\1 week\feature-23-05-2022-18-41-00.json"; // last day scrape
+            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\1 week\dynamic-20-04-2022-14-00-00.json"; // init dynamic using last json scrape
 
             // One time feature population
-             p.PopulateFeatureTables(featurePath);
+            p.PopulateFeatureTables(featurePath);
+            // Console.WriteLine("- INIT FEATURE -");
 
             // One time dynamic population
             p.PopulateDynamicTable(dynamicPath);
+            // Console.WriteLine("- INIT DYNAMIC -");
 
-            // This should be the only table to insert queries into afther the above two have been populated
+            // Loop through all the files and add to the database
+            string[] filePaths = Directory.GetFiles(@"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\1 week\", "*.json", SearchOption.TopDirectoryOnly);
+            Console.WriteLine("- DOING DYNAMIC CONNECTORS -");
+
             p.PopulateDynamicConnectorGroupTable(dynamicPath);
 
-            //TODO 
-            //      - Pass the file path inc filename where the json file will sit
-            //      - get the date from the file name
+            for (int i = 0; i < filePaths.Length; i++) {
+                if (filePaths[i].Contains("dynamic")) //ignore feature table
+                    // This should be the only table to insert queries into after the above two have been populated
+                    p.PopulateDynamicConnectorGroupTable(filePaths[i]);
+            }
 
         }
 
@@ -50,17 +55,20 @@ namespace ChargeScotland {
 
             JArray items = (JArray)obj["chargePoints"];
 
-            using (SqlConnection con = new SqlConnection(@"Data Source=CJG-LAPTOP\SQLEXPRESS;Initial Catalog=EV_DB;Integrated Security=True")) {
+            using (SqlConnection con = new SqlConnection(@"Data Source=evdb.database.windows.net;Initial Catalog=EV_DB;User ID=corriedotdev;Password=password")) { 
+                //(@"Data Source=CJG-LAPTOP\SQLEXPRESS;Initial Catalog=EV_DB;Integrated Security=True")) {
 
                 for (int i = 0; i < items.Count; i++) {
-
-                    var id = (int)obj["chargePoints"][i]["chargePoint"]["id"];
-                    var name = (string)obj["chargePoints"][i]["chargePoint"]["name"];
-                    var siteid = (int)obj["chargePoints"][i]["chargePoint"]["siteID"];
-
-                    Console.WriteLine("DynamicGroup- Doing ID " + id + " ");
+                    var id = 0;
 
                     try {
+
+                        id = (int)obj["chargePoints"][i]["chargePoint"]["id"];
+                        var name = (string)obj["chargePoints"][i]["chargePoint"]["name"];
+                        var siteid = (int)obj["chargePoints"][i]["chargePoint"]["siteID"];
+
+                        Console.WriteLine("DynamicGroup- Doing ID " + id + " ");
+
                         using (var cmd = new SqlCommand("INSERT INTO DynamicConnectorGroups (ID, ConnectorID, Status, Time) VALUES (@ID,@ConnectorID,@Status,@Time)")) {
 
                             cmd.Connection = con;
@@ -115,6 +123,7 @@ namespace ChargeScotland {
 
                     } catch (Exception e) {
                         Console.WriteLine("Error during insert: " + e.Message);
+                        File.AppendAllText(@"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\1 week\log.txt", "Path " + path + " ID " + id + Environment.NewLine);
                         con.Close();
                     }
 
@@ -122,7 +131,7 @@ namespace ChargeScotland {
 
             }
 
-            Console.WriteLine("DynamicGroup - Complete");
+            Console.WriteLine("DynamicGroup - Completed " + time);
 
         }
 
@@ -133,7 +142,7 @@ namespace ChargeScotland {
 
             JArray items = (JArray)obj["chargePoints"];
 
-            using (SqlConnection con = new SqlConnection(@"Data Source=CJG-LAPTOP\SQLEXPRESS;Initial Catalog=EV_DB;Integrated Security=True")) {
+            using (SqlConnection con = new SqlConnection(@"Data Source=evdb.database.windows.net;Initial Catalog=EV_DB;User ID=corriedotdev;Password=password")) {
 
                 for (int i = 0; i < items.Count; i++) {
 
@@ -174,6 +183,10 @@ namespace ChargeScotland {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
         public void PopulateFeatureTables(string path) {
 
             // read JSON directly from a file
@@ -181,7 +194,7 @@ namespace ChargeScotland {
 
             JArray items = (JArray)obj["features"];
 
-            using (SqlConnection con = new SqlConnection(@"Data Source=CJG-LAPTOP\SQLEXPRESS;Initial Catalog=EV_DB;Integrated Security=True")) {
+            using (SqlConnection con = new SqlConnection(@"Data Source=evdb.database.windows.net;Initial Catalog=EV_DB;User ID=corriedotdev;Password=password")) {
 
                 for (int i = 0; i < items.Count; i++) {
                     var id = (int)obj["features"][i]["properties"]["id"];
