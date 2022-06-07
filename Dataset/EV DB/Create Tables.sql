@@ -1,5 +1,3 @@
-
-
 drop table feature;
 drop table featureconnectorGroups;
 
