@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Corrie Green\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\ChargeScotland.csproj": {}
+    "C:\\Users\\Corrie\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\ChargeScotland.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Corrie Green\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\ChargeScotland.csproj": {
+    "C:\\Users\\Corrie\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\ChargeScotland.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Corrie Green\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\ChargeScotland.csproj",
+        "projectUniqueName": "C:\\Users\\Corrie\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\ChargeScotland.csproj",
         "projectName": "ChargeScotland",
-        "projectPath": "C:\\Users\\Corrie Green\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\ChargeScotland.csproj",
-        "packagesPath": "C:\\Users\\Corrie Green\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Corrie Green\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\obj\\",
+        "projectPath": "C:\\Users\\Corrie\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\ChargeScotland.csproj",
+        "packagesPath": "C:\\Users\\Corrie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Corrie\\GitHub\\ev-dataset\\ChargeScotland\\ChargeScotland\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Corrie Green\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Corrie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -66,18 +63,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.1.13, 3.1.13]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

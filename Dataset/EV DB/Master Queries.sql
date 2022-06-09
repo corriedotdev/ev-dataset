@@ -51,8 +51,10 @@ left JOIN FeatureConnectorGroups fg ON f.ID = fg.ID
 WHERE dc.CONNECTORID = fg.CONNECTORID AND
 fg.PLUGTYPENAME='CCS' AND   /*Type 2, CCS, CHAdeMO*/
  dc.TIME ='2022-04-14 10:00:00.000' AND
- dc.STATUS = 'AVAILABLE' /*UNAVAILABLE*/ 
- order by dc.id
+ dc.STATUS = 'AVAILABLE' /*UNAVAILABLE, UNKNOWN*/ 
+
+
+
  
 
 
