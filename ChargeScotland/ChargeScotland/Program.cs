@@ -10,6 +10,8 @@ using System.Web;
 namespace ChargeScotland {
     class Program {
 
+        //static string connectionString = @"Data Source=evdb.database.windows.net;Initial Catalog=EV_DB;User ID=corriedotdev;Password=password";
+        static string connectionString = @"Data Source=CJG-DESKTOP\SQLEXPRESS;Initial Catalog=EV_DB;Integrated Security=True";
 
         /// <summary>
         /// DB is made up of 4 tables. Static is feature and feature connected groups
@@ -18,9 +20,8 @@ namespace ChargeScotland {
         /// <param name="args"></param>
         static void Main(string[] args) {
             Program p = new Program();
-
-            string featurePath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\1 week\feature-23-05-2022-18-41-00.json"; // last day scrape
-            string dynamicPath = @"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\1 week\dynamic-20-04-2022-14-00-00.json"; // init dynamic using last json scrape
+            string featurePath = @"C:\Users\Corrie\GitHub\ev-dataset\Dataset\Data\15_min_interval_1_week\feature-15-06-2022-15-00-00.json"; // last day scrape
+            string dynamicPath = @"C:\Users\Corrie\GitHub\ev-dataset\Dataset\Data\15_min_interval_1_week\dynamic-15-06-2022-15-00-00.json"; // init dynamic using last json scrape
 
             // One time feature population
             p.PopulateFeatureTables(featurePath);
@@ -31,7 +32,7 @@ namespace ChargeScotland {
             // Console.WriteLine("- INIT DYNAMIC -");
 
             // Loop through all the files and add to the database
-            string[] filePaths = Directory.GetFiles(@"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\1 week\", "*.json", SearchOption.TopDirectoryOnly);
+            string[] filePaths = Directory.GetFiles(@"C:\Users\Corrie\GitHub\ev-dataset\Dataset\Data\15_min_interval_1_week\", "*.json", SearchOption.TopDirectoryOnly);
             Console.WriteLine("- DOING DYNAMIC CONNECTORS -");
 
             p.PopulateDynamicConnectorGroupTable(dynamicPath);
@@ -55,7 +56,7 @@ namespace ChargeScotland {
 
             JArray items = (JArray)obj["chargePoints"];
 
-            using (SqlConnection con = new SqlConnection(@"Data Source=evdb.database.windows.net;Initial Catalog=EV_DB;User ID=corriedotdev;Password=password")) { 
+            using (SqlConnection con = new SqlConnection(connectionString)) { 
                 //(@"Data Source=CJG-LAPTOP\SQLEXPRESS;Initial Catalog=EV_DB;Integrated Security=True")) {
 
                 for (int i = 0; i < items.Count; i++) {
@@ -123,7 +124,7 @@ namespace ChargeScotland {
 
                     } catch (Exception e) {
                         Console.WriteLine("Error during insert: " + e.Message);
-                        File.AppendAllText(@"C:\Users\Corrie Green\GitHub\ev-dataset\Dataset\Data\1 week\log.txt", "Path " + path + " ID " + id + Environment.NewLine);
+                        File.AppendAllText(@"C:\Users\Corrie\GitHub\ev-dataset\Dataset\Data\15_min_interval_1_week\log.txt", "Path " + path + " ID " + id + Environment.NewLine);
                         con.Close();
                     }
 
@@ -142,7 +143,7 @@ namespace ChargeScotland {
 
             JArray items = (JArray)obj["chargePoints"];
 
-            using (SqlConnection con = new SqlConnection(@"Data Source=evdb.database.windows.net;Initial Catalog=EV_DB;User ID=corriedotdev;Password=password")) {
+            using (SqlConnection con = new SqlConnection(connectionString)) {
 
                 for (int i = 0; i < items.Count; i++) {
 
@@ -194,7 +195,7 @@ namespace ChargeScotland {
 
             JArray items = (JArray)obj["features"];
 
-            using (SqlConnection con = new SqlConnection(@"Data Source=evdb.database.windows.net;Initial Catalog=EV_DB;User ID=corriedotdev;Password=password")) {
+            using (SqlConnection con = new SqlConnection(connectionString)) {
 
                 for (int i = 0; i < items.Count; i++) {
                     var id = (int)obj["features"][i]["properties"]["id"];

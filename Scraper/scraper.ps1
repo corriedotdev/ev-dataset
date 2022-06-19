@@ -24,7 +24,7 @@ $response = (Invoke-WebRequest -UseBasicParsing -Uri "https://account.chargeplac
 Write-Host "---"
 #dynamic-01-02-2022-09-00-00
 
-$dir = "C:\Users\Corrie\GitHub\ev-dataset\Dataset\Data\2 week\"
+$dir = "C:\Users\Corrie\GitHub\ev-dataset\Dataset\Data\15_min_ongoing\"
 $date = Get-Date -Format "dd-MM-yyyy-HH-mm-00"
 $filename = "dynamic-" + $date + ".json"
 
