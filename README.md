@@ -57,6 +57,11 @@ CREATE TABLE DynamicConnectorGroups (
 );
 
 ```
+## Datasets
+- [Here](https://github.com/corriedotdev/ev-dataset/tree/main/Dataset/EV_DB%20Backups) the backup (EV_DB_using recent feature and last dynamic.bak) is associated with [this](https://github.com/corriedotdev/ev-dataset/tree/main/Dataset/Data/15_min_interval_1_week) data set which is 15 mins intervales for a 2 weeks
+
+- The dataset [here](https://github.com/corriedotdev/ev-dataset/tree/main/Dataset/Data/15_min_ongoing) is for the entire month of July 2022 at 15 minute intervals. You will need to run the C# specifying this dir if you want to convert it to a DB 
+
 
 ## License 
 [GPL.3.0](https://choosealicense.com/licenses/gpl-3.0/) There is no robots.txt on the chargeplace scotland website. Also ethical consideration given to make the requests small at spaced intervals. I own the scrape but as the data is public access I have formatted it for better querying.
