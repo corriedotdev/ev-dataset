@@ -1,8 +1,8 @@
-## Scotland EV Charger Dataset 
+# Scotland EV Charger Dataset 
 
 <div align="center">
 
-[![alt text](https://raw.githubusercontent.com/corriedotdev/ev-dataset/main/ChargeScotland/screenshot.png)
+![alt text](https://github.com/corriedotdev/ev-dataset/blob/main/ChargeScotland/screenshot.png?raw=true)
 
 </div>
 
@@ -22,7 +22,7 @@ Chargeplacescotland.org, Tesla.com. WIll expand.
 You can get what chargers are available, unavailable or UNKNOWN by longitude and latitude location. Chargers include CSS, CHAdeMO and Type 2. Lat and long positions are indexed with an ID across all 4 tables. Minimal normalization has been completed to support in changes to the JSON and to help understand the data so its almost a 1:1 from JSON to SQL. Free to normalize yourself..
 ### Purpose?
 To understand ongoing trends in the use of EV chargers in scotland and see how city planning could be improved to integrate more as part of the [2030 EV commitment.](https://www.greencarguide.co.uk/features/scotland-and-electric-vehicles-whats-happening/#:~:text=The%20Scottish%20government%20has%20now,public%20electric%20vehicle%20charging%20network.) 
-As part of my PhD I am visualising geospatial positions with a modular 3D GUI to improve insight and engagement. I decided to be progressive in thought with using EV chargers as I drive an EV and noticed that really.. we need more and I can scrape this and create a dataset others can use for analysis or copy the framework for their own country.
+As part of my PhD I am visualising geospatial positions with a modular 3D GUI to improve insight and engagement. I decided to be progressive in thought with using EV chargers as I drive an EV and noticed that really.. we need more and I can scrape this and create a dataset others can use for analysis or copy the framework for their own country. For a demo please check out this repo.
 
 ### SQL DB 
 ```
