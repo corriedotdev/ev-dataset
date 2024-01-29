@@ -1,4 +1,13 @@
 ## Scotland EV Charger Dataset 
+
+<div align="center">
+
+[![alt text](https://raw.githubusercontent.com/corriedotdev/ev-dataset/main/ChargeScotland/screenshot.png)
+
+</div>
+
+
+
 Repo contains 4 sections
 1. /ChargeScotland C# Project that will parse the JSON into a SQL DB
 2. /Dataset JSON from various EV charge websites at 2 hour and 15 minute intervals for two seperate weeks. There is also an ongoing scrape folder that will continue to scrape at 15 minute intervals until something changes. In addition to SQL Database Scripts. This includes the create table and some basic queries. A .bak of the database can be found here as well if you want to get involved quickly.
