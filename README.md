@@ -6,6 +6,16 @@
 
 </div>
 
+<table>
+  <tr>
+    <td align="center"><img src="https://github.com/corriedotdev/ev-dataset/blob/main/ChargeScotland/1.gif?raw=true" alt="Corrie UI Animation 1"></td>
+    <td align="center"><img src="https://github.com/corriedotdev/ev-dataset/blob/main/ChargeScotland/2.gif?raw=true" alt="Corrie UI Animation 2"></td>
+    <td align="center"><img src="https://github.com/corriedotdev/ev-dataset/blob/main/ChargeScotland/3.gif?raw=true" alt="Corrie UI Animation 3"></td>
+  </tr>
+</table>
+
+
+
 
 
 Repo contains 4 sections
